@@ -7,7 +7,6 @@ import { useState } from 'react';
 const Home = () => {
   const [domainDetails, setDomainDetails] = useState(null);
   const [isValidDomain, setIsValidDomain] = useState(true);
-  const [apiError, setApiError] = useState(null); // New state variable for API errors
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,17 +37,16 @@ const Home = () => {
           
           console.log('Data received from the API:', data);
     
-          // Set domain details
+          // Set domain details and update isValidDomain state
           setDomainDetails(data);
           setIsValidDomain(true);
-          setApiError(null); // Clear any previous API errors
         } else {
           console.error('Error fetching data:', response.statusText);
-          setApiError('Error fetching data: ' + response.statusText); // Set API error
+          setIsValidDomain(false);
         }
       } catch (error) {
         console.error('Error fetching data:', error.message);
-        setApiError('Error fetching data: ' + error.message); // Set API error
+        setIsValidDomain(false);
       }
     } else {
       // If the input is not a valid domain, set isValidDomain to false
@@ -57,6 +55,8 @@ const Home = () => {
     
   };
 
+  
+  
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800 p-10">
       <link rel="icon" href="miner.png" sizes="any" />
@@ -70,12 +70,7 @@ const Home = () => {
       {!isValidDomain && (
         <p className="text-red-500">Invalid domain. Please enter a valid domain name.</p>
       )}
-      {apiError && (
-        <p className="text-red-500">{apiError}</p>
-      )}
-      {isValidDomain && domainDetails && !apiError && (
-        <DomainDetailsBox details={domainDetails} />
-      )}
+      {isValidDomain && domainDetails && <DomainDetailsBox details={domainDetails} />}
     </main>
   );
 };
