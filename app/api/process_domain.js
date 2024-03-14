@@ -1,4 +1,9 @@
 export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        res.status(405).json({ error: 'Method Not Allowed' });
+        return;
+    }
+
     try {
         // Forward the request to the Flask API
         const flaskResponse = await fetch('http://16.170.251.148:8000/process_domain', {
