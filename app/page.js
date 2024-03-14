@@ -21,10 +21,9 @@ const Home = () => {
 
     if (isValidDomain) {
       try {
-        console.log('Making a request to the proxy API route...');
-
-        // Use the proxy API route instead of the Flask API directly
-        const response = await fetch('/api/process_domain', {
+        console.log('Making a request to the Flask API...');
+        
+        const response = await fetch('http://16.170.251.148:8000/process_domain', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
