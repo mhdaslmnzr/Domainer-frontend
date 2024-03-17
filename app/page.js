@@ -22,7 +22,7 @@ const Home = () => {
       try {
         console.log('Making a request to the Flask API...');
         
-        const response = await fetch('http://16.170.251.148:8000/process_domain', {
+        const response = await fetch('https://api.mhdaslmnzr.space:8000/process_domain', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
